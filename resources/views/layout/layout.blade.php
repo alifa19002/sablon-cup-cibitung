@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkForLife</title>
-    <link rel="icon" href="{{ asset('img/logo1.png') }}">
+    <title>Sablon Cup Cibitung</title>
+    <link rel="icon" href="{{ asset('img/logo1.ico') }}">
     <link href="{{ asset('css/testimonial.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -17,21 +17,18 @@
     <nav class="p-4 bg-coolGray-100 text-coolGray-800">
 	<div class="container flex justify-between h-16 mx-auto">
 		<div class="flex">
-			<a rel="noopener noreferrer" href="{{ url('/') }}" aria-label="Back to homepage" class="flex items-center pb-32 pt-2 px-5 w-48 h-48 ">
-				<img src="{{ asset('img/logo.png') }}" alt="">
+			<a rel="noopener noreferrer" href="{{ url('/') }}" aria-label="Back to homepage" class="flex items-center py-12 pb-32 pt-2 px-35 w-48 h-48 ">
+				<img src="{{ asset('img/logo.png') }}" alt="logo">
 			</a>
 			<ul class="items-stretch hidden space-x-3 lg:flex">
 				<li class="flex">
 					<a rel="noopener noreferrer" href="{{ url('/') }}" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Beranda</a>
 				</li>
 				<li class="flex">
-					<a rel="noopener noreferrer" href="/loker" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Cari Loker</a>
+					<a rel="noopener noreferrer" href="/loker" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Lihat Sampel</a>
 				</li>
 				<li class="flex">
-					<a rel="noopener noreferrer" href="/posts" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Sharing</a>
-				</li>
-        <li class="flex">
-					<a rel="noopener noreferrer" href="/levelup" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">LevelUp</a>
+					<a rel="noopener noreferrer" href="/posts" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Order</a>
 				</li>
         @if (!(session()->has('token')))
         @else
@@ -47,10 +44,6 @@
 		@if (!(session()->has('token')))
 		<div class="pt-2 items-center flex-shrink-0 hidden lg:flex">
 			@if (!(session()->has('token')))
-      <form action="/company">
-			  <button class="mx-8 px-8 py-2 font-semibold rounded-lg bg-white border-2 border-gray-500 text-dongker hover:bg-white/30 hover:border-gray-500/30">Rekrut Sekarang</button>
-      </form>
-      
       <form action="/login">
         @csrf
 			  <button class="px-8 py-2 font-semibold rounded-lg bg-dongker border-2 border-[#123C69] text-white hover:bg-dongker/40 hover:border-[#123C69]/40">Masuk</button>

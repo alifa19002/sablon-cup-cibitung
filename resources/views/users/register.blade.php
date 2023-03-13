@@ -10,7 +10,7 @@
         @csrf
         <div class="grid grid-cols-2 gap-8">
           <div class="form-group mb-3">
-            <label for="nama" class="ml-1">Nama</label>
+            <label for="nama" class="ml-1">Nama Lengkap</label>
             <input required value="{{ old('nama') }}" type="text" class="@error('nama') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="nama" name="nama" placeholder="Nama">
             @error('nama')
             <div class="invalid-feedback">
@@ -19,17 +19,8 @@
             @enderror
           </div>
           <div class="form-group mb-3">
-            <label for="username" class="ml-1">Username</label>
-            <input required value="{{ old('username') }}" type="text" class="@error('username') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="username" name="username" placeholder="Username">
-            @error('username')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-            @enderror
-          </div>
-          <div class="form-group mb-3">
             <label for="email" class="ml-1">Email</label>
-            <input required value="{{ old('email') }}" type="email" class="@error('email') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="email" name="email" placeholder="Email">
+            <input required value="{{ old('email') }}" type="text" class="@error('email') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="email" name="email" placeholder="email">
             @error('email')
             <div class="invalid-feedback">
               {{ $message }}
@@ -38,8 +29,17 @@
           </div>
           <div class="form-group mb-3">
             <label for="no_telp" class="ml-1">Nomor Telepon</label>
-            <input required value="{{ old('no_telp') }}" type="text" class="@error('no_telp') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="no_telp" name="no_telp" placeholder="Nomor Telepon">
+            <input required value="{{ old('no_telp') }}" type="no_telp" class="@error('no_telp') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="no_telp" name="no_telp" placeholder="Nomor Telepon">
             @error('no_telp')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
+            @enderror
+          </div>
+          <div class="form-group mb-3">
+            <label for="alamat" class="ml-1">Alamat</label>
+            <input required value="{{ old('alamat') }}" type="text" class="@error('alamat') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="alamat" name="alamat" placeholder="Alamat">
+            @error('alamat')
             <div class="invalid-feedback">
               {{ $message }}
             </div>
@@ -63,7 +63,7 @@
             </div>
             @enderror
           </div>
-          <div class="form-group mb-3">
+          <!-- <div class="form-group mb-3">
             <label for="">Jenis Kelamin</label>
             <div class="flex">
             <div class="flex items-center mr-4 mb-1">
@@ -76,10 +76,13 @@
             </div>
             <input id="role" type="hidden" name="role" required value="0">
             </div>
-          </div>
+          </div> -->
+        </div>
+        <div class="flex justify-center items-center mt-10">
+          <button class="px-8 py-2 font-semibold rounded-lg bg-dongker border-2 border-[#123C69] text-white hover:bg-dongker/40 hover:border-[#123C69]/40 text-justify" type="submit">Daftar Sekarang</button>
         </div>
         <div class="flex justify-center items-center">
-          <button class="px-8 py-2 font-semibold rounded-lg bg-dongker border-2 border-[#123C69] text-white hover:bg-dongker/40 hover:border-[#123C69]/40 text-justify" type="submit">Daftar Sekarang</button>
+        <small class="d-block text-center mx-20">Sudah punya akun? <a class="text-pingki" href="/login">Masuk Sekarang!</a> </small>
         </div>
       </form>
     </div>
