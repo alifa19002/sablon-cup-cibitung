@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('productName');
-            $table->bigInteger('price');
+            $table->double('price');
         });
     }
 
