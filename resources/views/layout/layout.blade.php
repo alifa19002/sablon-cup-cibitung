@@ -25,33 +25,31 @@
 					<a rel="noopener noreferrer" href="{{ url('/') }}" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Beranda</a>
 				</li>
 				<li class="flex">
-					<a rel="noopener noreferrer" href="/loker" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Lihat Sampel</a>
+					<a rel="noopener noreferrer" href="/sampel" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Lihat Sampel</a>
 				</li>
 				<li class="flex">
-					<a rel="noopener noreferrer" href="/posts" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Order</a>
+					<a rel="noopener noreferrer" href="/order" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Order</a>
 				</li>
-        @if (!(session()->has('token')))
-        @else
-        @if(session()->get('role')== 2)
+        @auth
+        @if(Auth::user()->role == 1)
         <li class="flex">
-					<a rel="noopener noreferrer" href="/admin" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Admin</a>
+					<a rel="noopener noreferrer" href="/admin" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Dashboard</a>
 				</li>
         @endif
-        @endif
+        @endauth
 			</ul>
 		</div>
 
-		@if (!(session()->has('token')))
+		@guest
 		<div class="pt-2 items-center flex-shrink-0 hidden lg:flex">
-			@if (!(session()->has('token')))
       <form action="/login">
         @csrf
 			  <button class="px-8 py-2 font-semibold rounded-lg bg-dongker border-2 border-[#123C69] text-white hover:bg-dongker/40 hover:border-[#123C69]/40">Masuk</button>
       </form>
-      @endif	
 		</div>
+    @endguest
 
-		@else
+		@auth
 		<div class="pt-2 items-center flex-shrink-0 hidden lg:flex">
       <form action="/logout" method="POST">
         @csrf
@@ -61,8 +59,8 @@
       <button type="button" class="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
                 <div class="w-10 h-10 mx-10 overflow-hidden border-2 border-gray-400 rounded-full">
                     <a href="/profile">
-                      @if(session()->get('foto_profil') != NULL)
-                        <img src="{{ asset('storage/' . session()->get('foto_profil')) }}" class="object-cover w-full h-full" alt="avatar">
+                      @if(Auth::user()->foto_profil != NULL)
+                        <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}" class="object-cover w-full h-full" alt="avatar">
                       @else
                         <img src="{{ asset('img/avatar.png') }}" class="object-cover w-full h-full" alt="avatar">
                       @endif
@@ -70,13 +68,12 @@
                 </div>
             </button>
 		</div>
-		@endif
+		@endauth
 
     <!--Mobile Menu-->
     <div class="md:hidden flex items-center">
-    @if (!(session()->has('token')))
+    @guest
 		<div class="pt-2 items-center flex-shrink-0 flex">
-			@if (!(session()->has('token')))
       <form action="/company">
 			  <button class="mx-4 px-3 py-1 font-semibold rounded-lg bg-white border-2 border-gray-500 text-dongker hover:bg-white/30 hover:border-gray-500/30">Rekrut Sekarang</button>
       </form>
@@ -85,10 +82,10 @@
         @csrf
 			  <button class="px-3 py-1 font-semibold rounded-lg bg-dongker border-2 border-[#123C69] text-white hover:bg-dongker/40 hover:border-[#123C69]/40">Masuk</button>
       </form>
-      @endif	
 		</div>
+    @endguest
 
-		@else
+		@auth
 		<div class="pt-2 items-center flex-shrink-0 flex">
       <form action="/logout" method="POST">
         @csrf
@@ -98,8 +95,8 @@
       <button type="button" class="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
                 <div class="w-9 h-9 mx-9 overflow-hidden border-2 border-gray-400 rounded-full">
                     <a href="/profile">
-                      @if(session()->get('foto_profil') != NULL)
-                        <img src="{{ asset('storage/' . session()->get('foto_profil')) }}" class="object-cover w-full h-full" alt="avatar">
+                      @if(Auth::user()->foto_profil != NULL)
+                        <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}" class="object-cover w-full h-full" alt="avatar">
                       @else
                         <img src="{{ asset('img/avatar.png') }}" class="object-cover w-full h-full" alt="avatar">
                       @endif
@@ -107,7 +104,7 @@
                 </div>
             </button>
 		</div>
-		@endif
+		@endauth
 						<button class="outline-none mobile-menu-button">
 						<svg class=" w-6 h-6 text-gray-500 hover:text-dongker "
 							x-show="!showMenu"
@@ -128,16 +125,13 @@
 			<div class="hidden mobile-menu mx-10">
 				<ul class="">
 					<li><a href="/" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Beranda</a></li>
-					<li><a href="/loker" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Cari Loker</a></li>
-					<li><a href="/posts" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Sharing</a></li>
-          @if(!(session()->has('token')))
-          @else
-          @if(session()->get('role') == 2)
-					<li><a href="/admin" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Admin</a></li>
-          @elseif(session()->get('role') == 1)
-          <li><a href="/loker/all" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Rekap Lowongan Kerja</a></li>
+					<li><a href="/loker" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Lihat Sample</a></li>
+					<li><a href="/posts" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Order</a></li>
+          @auth
+          @if(Auth::user()->role == 1)
+					<li><a href="/admin" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Dashboard</a></li>
           @endif
-          @endif
+          @endauth
 				</ul>
 			</div>
 	</div>
