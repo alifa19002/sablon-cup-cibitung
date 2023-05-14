@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,32 +18,28 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
-        $response = Http::asForm()->post('http://workforlife-be.my.id/api/login', [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
+        $credentials = $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required'
         ]);
-        $status = $response->status();
-        if($status == 200){
-            $response = $response->object();
-            $token = $response->access_token;
-            $role = $response->role;
-            $id = $response->id;
-            $company_id = $response->company_id;
-            $username = $response->username;
-            $foto_profil = $response->foto_profil;
-            session(['token' => $token]);
-            session(['role' => $role]);
-            session(['id' => $id]);
-            session(['company_id' => $company_id]);
-            session(['username' => $username]);
-            session(['foto_profil' => $foto_profil]);
-            return redirect()->intended('/');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            if (Auth::user()->role == 1) {
+                return redirect()->intended('/admin');
+            } else {
+                return redirect()->intended('/');
+            }
         }
+
         return back()->with('loginError', 'Login failed!');
     }
 
     public function logout(Request $request)
     {
-        
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

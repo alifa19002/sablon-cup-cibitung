@@ -20,11 +20,17 @@ class RegisterController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|max:100',
             'email' => 'required|email:dns|unique:users',
-            'no_telp' => 'required|numeric|digits_between:10,14',
+            'username' => 'required|unique:users',
+            'no_telp' => 'required|numeric|digits_between:10,14|unique:users',
             'password' => 'required|min:5|max:50',
             'alamat' => 'required|max:255'
+            // 'password_confirmation' => 'required|same:password'
         ]);
 
+        // if ($validatedData->FALSE) {
+        //     return response()->json([
+        //       ‘errors’ => $validator->errors(), ‘status’ => 400,], 400);
+        //   }
         // $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::create($validatedData);
