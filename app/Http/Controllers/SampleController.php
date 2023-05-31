@@ -25,4 +25,30 @@ class SampleController extends Controller
             // 'events' => Sample::latest()->where('status_event', "Accepted")->filter(request(['search', 'category']))->paginate(10)->withQueryString()
         ]);
     }
+    public function store(Request $request)
+    {
+        $uploadPath = public_path('storage/photo');
+
+        if ($request->hasFile('photo')){
+            $file = $request->file('photo');
+            $uniqueFileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move($uploadPath, $uniqueFileName);
+            $imagepath = 'photo/' . $uniqueFileName;
+        }
+        else{
+            $imagepath = NULL;
+        }
+            $order = Sample::create([
+                'user_id' => request('user_id'),
+                'photo' => $imagepath
+            ]);
+            return redirect('/admin')->with('success', 'Sampel telah ditambahkan');
+    }
+    public function show()
+    {
+        return view('admin.add-sample', [
+            'title' => 'Tambah Sampel',
+            'active' => 'Tambah Sampel'
+        ]);
+    }
 }
