@@ -28,6 +28,15 @@
             @enderror
           </div>
           <div class="form-group mb-3">
+            <label for="username" class="ml-1">Username</label>
+            <input required value="{{ old('username') }}" type="text" class="@error('username') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="username" name="username" placeholder="username">
+            @error('username')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
+            @enderror
+          </div>
+          <div class="form-group mb-3">
             <label for="no_telp" class="ml-1">Nomor Telepon</label>
             <input required value="{{ old('no_telp') }}" type="no_telp" class="@error('no_telp') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="no_telp" name="no_telp" placeholder="Nomor Telepon">
             @error('no_telp')
