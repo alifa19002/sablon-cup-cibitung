@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\DeliveryType;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -35,13 +36,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'alifa',
+            'nama' => 'alifa',
             'username' => 'alifa1',
             'email' => 'alifa@mail.com',
             'password' => Hash::make('alifa123'),
-            'is_admin' => '0',
-            'no_telp' => '081806178888',
-            'jk' => 'P',
+            'no_telp' => '081806178888'
         ]);
         Product::create([
             'productName' => 'Cup 12oz Flat 6,5 gram',
@@ -82,6 +81,12 @@ class DatabaseSeeder extends Seeder
         Product::create([
             'productName' => 'Tutup Dome',
             'price' => '230'
+        ]);
+        DeliveryType::create([
+            'type' => 'Pickup'
+        ]);
+        DeliveryType::create([
+            'type' => 'Diantar'
         ]);
     }
 }
