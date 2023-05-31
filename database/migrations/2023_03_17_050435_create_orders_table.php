@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('address');
             // $table->string('estimate');
             $table->string('status');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
