@@ -25,7 +25,7 @@
 					<a rel="noopener noreferrer" href="{{ url('/') }}" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Beranda</a>
 				</li>
 				<li class="flex">
-					<a rel="noopener noreferrer" href="/sampel" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Lihat Sampel</a>
+					<a rel="noopener noreferrer" href="/sample" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Lihat Sampel</a>
 				</li>
 				<li class="flex">
 					<a rel="noopener noreferrer" href="/order" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Order</a>
@@ -125,8 +125,8 @@
 			<div class="hidden mobile-menu mx-10">
 				<ul class="">
 					<li><a href="/" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Beranda</a></li>
-					<li><a href="/loker" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Lihat Sample</a></li>
-					<li><a href="/posts" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Order</a></li>
+					<li><a href="/sample" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Lihat Sample</a></li>
+					<li><a href="/order" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Order</a></li>
           @auth
           @if(Auth::user()->role == 1)
 					<li><a href="/admin" class="block text-sm px-2 py-4 bg-white hover:bg-dongker hover:text-white transition duration-300">Dashboard</a></li>
