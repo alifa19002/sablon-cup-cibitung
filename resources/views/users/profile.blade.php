@@ -29,7 +29,7 @@
             <h2 class="text-4xl font-medium mb-1">{{ $profilUser->username }}</h2>
         </div>
         <div>
-            <button class="px-3 py-1 rounded-full bg-[#E84A5F] text-white font-bold border-[#E84A5F] hover:bg-[#E84A5F]/75 border-[#E84A5F]/75">
+            <button class="px-3 py-1 rounded-full bg-blue-700 text-sm text-white font-bold border-[#E84A5F] hover:bg-[#E84A5F]/75 border-[#E84A5F]/75">
                 <a href="/profile/{{ auth()->user()->username }}/edit">EDIT PROFIL</a>
             </button>
         </div>

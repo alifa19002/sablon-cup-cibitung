@@ -50,6 +50,15 @@ class UserController extends Controller
         return back()->with('loginError', 'Login failed!');
     }
 
+    public function edit($username)
+    {
+        return view('users.edit', [
+            'title' => 'Edit Profile',
+            'active' => 'Edit Profile',
+            'profilUser' => User::where('username', $username)->first()
+        ]);
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
