@@ -26,6 +26,7 @@ Route::get('/', function () {
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [UserController::class, 'authenticate']);
 Route::get('/profile', [UserController::class, 'index'])->middleware('auth');
+Route::get('/profile/{username}/edit', [UserController::class, 'edit'])->middleware('auth');
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
@@ -36,6 +37,9 @@ Route::get('/order', [OrderController::class, 'index'])->middleware('auth');
 Route::post('/order/create', [OrderController::class, 'store'])->middleware('auth');
 Route::get('/payment/{id}', [PaymentController::class, 'index'])->name('payment');
 Route::put('/payment/{id}', [PaymentController::class, 'update']);
+Route::put('/change-status/{id}/{status}', [OrderController::class, 'status']);
+Route::put('/cancel-order', [OrderController::class, 'note']);
 Route::get('/add-product', [ProductController::class, 'index']);
+Route::put('/add-delivery-fee', [AdminController::class, 'deliveryFee']);
 Route::post('/product', [ProductController::class, 'store']);
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');

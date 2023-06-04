@@ -59,4 +59,15 @@ class PaymentController extends Controller
             return redirect('/profile')->with('alert', 'Pembayaran gagal!');
         }
     }
+
+    public function deliveryFee(Request $request, $id)
+    {
+        $payment = Payment::where('order_id', request('order_id'))->first();
+        $payment->delivery_fee = request('delivery_fee');
+        if ($payment->save()) {
+            return redirect('/admin')->with('success', 'Pembayaran sukses!');
+        } else {
+            return redirect('/admin')->with('alert', 'Pembayaran gagal!');
+        }
+    }
 }

@@ -60,4 +60,53 @@ class OrderController extends Controller
             // return redirect('/order')->with('success', 'Pesanan berhasil diajukan. Lihat Status Pesanan anda di halaman profil.');
             return redirect()->route('payment', [$order->id])->with('success','Pendaftaran Berhasil');
     }
+    public function status($id, $status)
+    {
+        switch($status) {
+            case('dp'):
+                $order = Order::find($id);
+                $order->status = "Menunggu Pembayaran DP";
+                $order->save();
+                $msg = 'Status telah diubah!';
+                break;
+            case('proses'):
+                $order = Order::find($id);
+                $order->status = "Pesanan Diproses";
+                $order->save();
+                $msg = 'Status telah diubah!';
+                break;
+            case('lunas'):
+                $order = Order::find($id);
+                $order->status = "Menunggu Pelunasan Pembayaran";
+                $order->save();
+                $msg = 'Status telah diubah!';
+                break;
+            case('kirim'):
+                $order = Order::find($id);
+                $order->status = "Produksi Selesai";
+                $order->save();
+                $msg = 'Status telah diubah!';
+                break;
+            case('selesai'):
+                $order = Order::find($id);
+                $order->status = "Pesanan Selesai";
+                $order->save();
+                $msg = 'Status telah diubah!';
+                break;
+            default:
+                $msg = 'Something went wrong.';
+            }
+        return redirect('/admin')->with('success', $msg);
+    }
+    public function note(Request $request)
+    {
+        $order = Order::find(request('order_id'));
+        $order->note = request('note');
+        $order->status = 'Pesanan dibatalkan';
+        if ($order->save()) {
+            return redirect('/admin')->with('success', 'Pembayaran sukses!');
+        } else {
+            return redirect('/admin')->with('alert', 'Pembayaran gagal!');
+        }
+    }
 }
