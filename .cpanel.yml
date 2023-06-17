@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-  - export DEPLOYPATH=/home/sabs7922/public_html
+  - export DEPLOYPATH=/home/sabs7922/public_html/public
   - /bin/cp -r * $DEPLOYPATH
