@@ -3,25 +3,26 @@
 <!--  Hero -->
 @section('content')
 <section class="relative pt-10 md:mt-0 md:h-screen flex flex-col justify-center text-center md:text-left md:flex-row md:justify-between md:items-center lg:px-20 md:px-12 px-4">
-    <div class="md:flex-1 md:mr-40">
-      <h1 class="font-montserrat text-5xl font-extrabold mb-7">Pesan <span class="text-pingki">Gelas Cup</span> Untuk Usahamu Disini</h1>
-      <p class="font-montserrat font-light mb-7 max-w-xl">
-      Dapatkan gelas cup plastik dengan desain atau logo produk minuman Anda! 
-      </p>
-      <div>
-  	    <form class="font-montserrat flex">
-		    <a href="/loker" class="px-8 rounded-lg bg-[#E84A5F]  text-white font-bold p-4  border-[#E84A5F] hover:bg-[#E84A5F]/75 border-[#E84A5F]/75">Cek Sekarang</a>
-	    </form>
-      </div>
+  <div class="md:flex-1 md:mr-40">
+    <h1 class="font-montserrat text-5xl font-extrabold mb-7">Pesan <span class="text-pingki">Gelas Cup</span> Untuk Usahamu Disini</h1>
+    <p class="font-montserrat font-light mb-7 max-w-xl">
+      Dapatkan gelas cup plastik dengan desain atau logo produk minuman Anda!
+    </p>
+    <div>
+      <form class="font-montserrat flex">
+        <a href="/order" class="px-8 rounded-lg bg-pantone text-white font-bold p-4 border-pantone hover:bg-pantone/75 border-pantone/75">Order Sekarang
+        </a>
+      </form>
     </div>
-    <div class="flex justify-around md:block mt-8 md:mt-0 md:flex-1">
-      <img src="{{ asset('img/depan.png') }}" alt="Gambar" />
-    </div>
-  </section>
+  </div>
+  <div class="flex justify-around md:block mt-8 md:mt-0 md:flex-1">
+    <img src="{{ asset('img/depan.png') }}" alt="Gambar" />
+  </div>
+</section>
 
-  <!-- Loker Terbaru -->
-  {{-- @if($latest_loker != NULL) --}}
-  <!-- <section class="relative bg-[#123C69]">
+<!-- Loker Terbaru -->
+{{-- @if($latest_loker != NULL) --}}
+<!-- <section class="relative bg-[#123C69]">
     <div class="pt-28 max-h-7">
         <p class="font-montserrat font-bold pt-5 text-white text-center text-5xl sm:text-4xl">Beberapa Lowongan Terbaru</p>
     </div>
@@ -40,7 +41,7 @@
     {{-- @endforeach --}}
   </div>
   </section>-->
-  <!-- delete "{{-- --}}" to uncomment -->
-  {{-- @endif  --}}
+<!-- delete "{{-- --}}" to uncomment -->
+{{-- @endif  --}}
 
 @endsection
