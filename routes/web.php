@@ -27,6 +27,7 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 Route::post('/login', [UserController::class, 'authenticate']);
 Route::get('/profile', [UserController::class, 'index'])->middleware('auth');
 Route::get('/profile/{username}/edit', [UserController::class, 'edit'])->middleware('auth');
+Route::put('/profile', [UserController::class, 'update'])->middleware('auth');
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
