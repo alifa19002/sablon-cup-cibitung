@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('samples', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('product_id')->constrained('products');
             $table->string('photo');
             $table->timestamps();
         });
