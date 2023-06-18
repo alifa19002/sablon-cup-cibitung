@@ -83,7 +83,13 @@ class OrderController extends Controller
                 break;
             case('kirim'):
                 $order = Order::find($id);
-                $order->status = "Produksi Selesai";
+                $delivery_type = Payment::where('order_id', $id)->first();
+                if($delivery_type ==1){
+                    $order->status = "Pesanan Dapat Diambil";
+                }
+                else{
+                    $order->status = "Pesanan dikirim";
+                }
                 $order->save();
                 $msg = 'Status telah diubah!';
                 break;
