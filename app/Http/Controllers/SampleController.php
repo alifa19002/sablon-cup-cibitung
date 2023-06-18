@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Sample;
 
@@ -29,7 +30,7 @@ class SampleController extends Controller
             $imagepath = NULL;
         }
             $order = Sample::create([
-                'user_id' => request('user_id'),
+                'product_id' => request('product_id'),
                 'photo' => $imagepath
             ]);
             return redirect('/admin')->with('success', 'Sampel telah ditambahkan');
@@ -38,7 +39,8 @@ class SampleController extends Controller
     {
         return view('admin.add-sample', [
             'title' => 'Tambah Sampel',
-            'active' => 'Tambah Sampel'
+            'active' => 'Tambah Sampel',
+            'products' => Product::orderBy('productName')->get()
         ]);
     }
 }
