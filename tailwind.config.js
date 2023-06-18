@@ -17,7 +17,8 @@ module.exports = {
     extend: 
     {
       fontFamily:{
-        'montserrat': ['Montserrat']
+        'montserrat': ['Montserrat'],
+        'secular one': ['Secular One']
       },
       textColor:{
         'pingki':'#E84A5F',
@@ -27,7 +28,8 @@ module.exports = {
         'pingki':'#E84A5F',
         'dongker':'#123C69',
         'tipis':'#F2F6FB',
-        'abu':'#F6F6F6'
+        'abu':'#F6F6F6',
+        'pantone' : '#2AA64B'
       }
     },
   },
