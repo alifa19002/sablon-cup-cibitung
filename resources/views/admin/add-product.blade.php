@@ -30,7 +30,7 @@
     <h1 class="text-2xl font-bold">Form Tambah Produk</h1>
 </div>
 <div class="flex justify-center item-center">
-    <form method="POST" action="/product" class="w-6/12" enctype="multipart/form-data">
+    <form method="POST" action="/product" enctype="multipart/form-data">
         @csrf
         <div class="bg-abu rounded-lg">
             <div class="m-10 py-10">
@@ -38,9 +38,9 @@
                     <div class="w-44 font-bold h-6 mx-2 mt-3">Nama Produk</div>
                     <div>
                         <div class="flex flex-col md:flex-row w-max">
-                            <div class="flex-1 my-2 p-1 bg-white flex border border-gray-200 rounded-lg">
-                                <input type="text" class="p-1 px-2 w-96" id="productName" name="productName" value="{{ old('productName')}}">
-                            </div>
+                            <!-- <div class="flex-1 my-2 p-1 bg-white flex border border-gray-200 rounded-lg"> -->
+                                <input type="text" class="rounded-xl block w-full p-2.5" id="productName" name="productName" value="{{ old('productName')}}">
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
@@ -48,10 +48,10 @@
                     <div class="w-44 font-bold h-6 mx-2 mt-3">Harga Satuan</div>
                     <div>
                         <div class="flex flex-col md:flex-row w-max">
-                            <div class="flex-1 my-2 p-1 bg-white flex border border-gray-200 rounded-lg">
-                                <input type="text" class="p-1 px-2 py-10 w-96" id="price" name="price"
+                            <!-- <div class="flex-1 my-2 p-1 bg-white flex border border-gray-200 rounded-lg"> -->
+                                <input type="number" class="rounded-xl block w-full p-2.5" id="price" name="price"
                                     value="{{ old('price')}}">
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
