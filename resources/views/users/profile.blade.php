@@ -20,7 +20,7 @@
         @if($profilUser->foto_profil == NULL)
         <img src="{{ asset('img/avatar.png') }}" alt="" class="object-cover object-center w-full h-full rounded-full bg-white">
         @else
-        <img src="{{ asset('storage/' . $profilUser->foto_profil) }}" alt="" class="object-cover object-center w-full h-full rounded-full bg-white">
+        <img src="{{ asset('storage/' . $profilUser->foto_profil) }}" alt="" width="280" height="280" class="object-cover object-center rounded-full bg-white">
         @endif
     </div>
     <div class="flex flex-col space-y-4 pl-5 mt-3">
@@ -50,7 +50,7 @@
                 </a>
             </li>
         </ul>
-        <div class="relative flex flex-col min-w-0 break-words bg-[#F6F6F6] mb-6 mx-32 shadow-lg rounded">
+        <div class="relative flex flex-col min-w-0 break-words bg-[#F6F6F6] mb-6 mx-16 shadow-lg rounded">
             <div class="px-4 py-5 flex-auto">
                 <div class="tab-content tab-space">
                     <div class="block" id="tab-profile">
@@ -131,9 +131,7 @@
                                             {{ $order->address }}
                                         </td>
                                         <td class="py-4 px-6">
-                                            @if($order->status == "Berhasil")
-                                            <p class="p-2 rounded-md text-white text-xs uppercase" style="background-color: #2F9960">{{ $order->status }}</p>
-                                            @elseif($order->status == "Menunggu Pembayaran DP" or $order->status == "Menunggu Pelunasan")
+                                            @if($order->status == "Menunggu Pembayaran DP" or $order->status == "Menunggu Pelunasan Pembayaran")
                                             <p class="p-2 rounded-md text-white text-xs uppercase" style="background-color: #D6AD2B">{{ $order->status }}
                                                 <button class="block w-800 md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >
                                                     <a href="{{ route('payment', ['id' => $order->id]) }}">
@@ -141,14 +139,8 @@
                                                     </a>
                                                 </button>
                                             </p>
-                                            @elseif($order->status == "Pesanan dipending")
-                                            <p class="p-2 rounded-md text-white text-xs uppercase" style="background-color: #6680C2">{{ $order->status }}
-                                                <button class="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >
-                                                    <a href="{{-- route('formPayment', ['id' => $order->id]) --}}">
-                                                        Lihat Catatan
-                                                    </a>
-                                                </button>
-                                            </p>
+                                            @elseif($order->status == "Pesanan dibatalkan")
+                                            <p class="p-2 rounded-md text-white text-xs uppercase" style="background-color: #6680C2">{{ $order->status }}. {{$order->note}}</p>
                                             @else
                                             <p class="p-2 rounded-md text-white text-xs uppercase" style="background-color: #6D6D6D">{{ $order->status }}</p>
                                             @endif

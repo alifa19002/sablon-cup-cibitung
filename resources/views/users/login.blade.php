@@ -59,20 +59,31 @@
       <div>
       <form action="/login" method="post">
         <div class="flex flex-wrap">
-          <div class="w-full lg:w-6/12 px-4">
+          <div class="w-full px-4">
             @csrf
             <div class="pb-10">
-              <h6 class="disable">EMAIL</h6>
-              <input type="email" class="w-96 rounded-xl" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter email address" value="{{ old('email') }}" autofocus required>
-              @error('email')
+              <h6 class="disable">Username atau Nomor Handphone</h6>
+              <input type="text" class="rounded-xl block w-full p-2.5" name="login" class="form-control @error('login') is-invalid @enderror" id="login" placeholder="Username atau nomor handphone" value="{{ old('login') }}" autofocus required>
+              @error('login')
               <div class="invalid-feedback">
                 {{ $message }}
               </div>
               @enderror
             </div>
+            {{--
+            <div class="pb-10">
+              <h6 class="disable">EMAIL</h6>
+              <input type="text" class="w-96 rounded-xl" name="username" class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}" id="login" placeholder="Masukkan username atau nomor telepon" value="{{ old('username') ?: old('email') }}" autofocus required>
+              @if ($errors->has('username') || $errors->has('email'))
+              <div class="invalid-feedback">
+                {{ $errors->first('username') ?: $errors->first('email') }}
+              </div>
+              @endif
+            </div>
+            --}}
             <div class="">
               <h6 class="disable">PASSWORD</h6>
-              <input type="password" name="password" class="form-control w-96 rounded-xl" id="password" placeholder="Password" required>
+              <input type="password" name="password" class="rounded-xl block w-full p-2.5" id="password" placeholder="Password" required>
               @error('password')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -80,22 +91,11 @@
               @enderror
             </div>
           </div>
-
-            {{-- 
-            <div class="">
-              <h6 class="disable">EMAIL</h6>
-              <input type="email" class="form-control w-96" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter email address" value="{{ old('email') }}" autofocus required>
-            </div>
-            <div class="">
-              <h6 class="disable">PASSWORD</h6>
-              <input type="password" class="form-control w-96" id="Password" placeholder="Password">
-            </div> 
-              --}}
-            </div>
-              <div class="mx-36 mt-8 mb-1">
-                <button class="px-8 py-2 font-semibold rounded-lg bg-dongker border-2 border-[#123C69] text-white hover:bg-dongker/40 hover:border-[#123C69]/40 text-justify" type="submit">Login</button>
+          </div>
+              <div class="flex justify-center items-center mt-10">
+                <button class="px-8 py-2 font-semibold rounded-lg bg-pantone border-2 border-pantone text-white hover:bg-pantone/40 hover:border-pantone/40 text-justify" type="submit">Login</button>
               </div>
-              <small class="d-block text-center mx-20">Belum punya akun? <a class="text-pingki" href="/register">Daftar Sekarang!</a> </small>
+              <small class="block text-center mt-4">Belum punya akun? <a class="text-pingki" href="/register">Daftar Sekarang!</a> </small>
       </form>
       </div>
     </div>
