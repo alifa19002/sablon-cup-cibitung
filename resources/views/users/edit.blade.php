@@ -27,7 +27,9 @@
                 <div>
                   <h2 style="text-align: center" class="edit mt-3 mb-3">Edit Profile</h2>
                 </div>
-                <form method="post" action="/profile/{{ $profilUser->username }}" enctype="multipart/form-data">
+                <form method="post" action="/profile" enctype="multipart/form-data">
+                  @method('put')
+                  @csrf
                   <div class="col-md-10" style="margin-left:65px; margin-bottom:20px">
                     {{-- #Hidden: bisa pakai imgbb dsb, tidak bisa pake public:link laravel --}}
                     {{-- <input type="hidden" name="oldImage" value="{{ $profilUser->foto_profil }}">
@@ -104,7 +106,16 @@
                           {{ $message }}
                       </div>
                       @enderror
-                  </div>
+                    </div>
+                    <div class="box-login2 mt-3">
+                      <h6>Ubah Foto Profil</h6>
+                      <input style="width:93.8%" class="form-control @error('foto_profil') is-invalid @enderror mt-5" type="file" id="foto_profil" name="foto_profil" onchange="previewImage()" value="{{ old('foto_profil',  $profilUser->foto_profil) }}">
+                      @error('foto_profil')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
                     <div class="flex justify-center item-center pb-4">
                       <button class="px-8 py-2 font-semibold rounded-lg bg-dongker border-2 border-[#123C69] text-white hover:bg-dongker/40 hover:border-[#123C69]/40 mt-5" type="submit">Update Profile</button>
                     </div>
