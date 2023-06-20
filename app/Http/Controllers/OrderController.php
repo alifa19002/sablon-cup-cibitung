@@ -84,7 +84,7 @@ class OrderController extends Controller
             case('kirim'):
                 $order = Order::find($id);
                 $delivery_type = Payment::where('order_id', $id)->first();
-                if($delivery_type ==1){
+                if($delivery_type == 1){
                     $order->status = "Pesanan Dapat Diambil";
                 }
                 else{
@@ -110,9 +110,19 @@ class OrderController extends Controller
         $order->note = request('note');
         $order->status = 'Pesanan dibatalkan';
         if ($order->save()) {
-            return redirect('/admin')->with('success', 'Pembayaran sukses!');
+            return redirect('/admin')->with('success', 'Pesanan dibatalkan!');
         } else {
-            return redirect('/admin')->with('alert', 'Pembayaran gagal!');
+            return redirect('/admin')->with('error', 'Error dalam pembatalan pesanan!');
+        }
+    }
+    public function destroy($id)
+    {
+        $payment = Payment::destroy($id);
+        $order = Order::destroy($id);
+        if ($order && $payment) {
+            return redirect('/admin')->with('success', 'Pesanan telah dihapus!');
+        } else {
+            return redirect('/admin')->with('error', 'Pesanan gagal dihapus!');
         }
     }
 }

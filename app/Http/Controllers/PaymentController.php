@@ -12,8 +12,8 @@ class PaymentController extends Controller
     {
         // $products = Product::orderBy('productName')->get();
         // $deliveries = DeliveryType::all();
-        $payment = Order::select('orders.id', 'orders.design', 'orders.quantity', 'orders.address', 'payments.delivery_id', 'products.productName', 'products.price', 'payments.delivery_fee', 'payments.total_price', 'payments.dp_proof')
-            ->join('products', 'products.id', '=', 'orders.product_id')->join('payments', 'payments.order_id', '=', 'orders.id')
+        $payment = Order::select('orders.id', 'orders.design', 'orders.quantity', 'orders.address', 'payments.delivery_id', 'products.productName', 'products.price', 'payments.delivery_fee', 'payments.total_price', 'payments.dp_proof', 'delivery_types.type', Payment::raw('IFNULL(payments.delivery_fee + payments.total_price, payments.total_price) as total'))
+            ->join('products', 'products.id', '=', 'orders.product_id')->join('payments', 'payments.order_id', '=', 'orders.id')->join('delivery_types', 'delivery_types.id', '=', 'payments.delivery_id')
             ->where('orders.id', $id)->first();
 
         return view('orders.payment-form', [
@@ -49,14 +49,19 @@ class PaymentController extends Controller
             } else {
                 $proof = NULL;
             }
-            $order->status = 'Pesanan Selesai';
+            if($payment->delivery_id == 1){
+                $order->status = "Pesanan Dapat Diambil";
+            }
+            else{
+                $order->status = "Pesanan dikirim";
+            }
             $payment->payment_proof = $proof;
         }
         
         if ($payment->save() && $order->save()) {
             return redirect('/profile')->with('success', 'Pembayaran sukses!');
         } else {
-            return redirect('/profile')->with('alert', 'Pembayaran gagal!');
+            return redirect('/profile')->with('error', 'Pembayaran gagal!');
         }
     }
 
@@ -67,7 +72,7 @@ class PaymentController extends Controller
         if ($payment->save()) {
             return redirect('/admin')->with('success', 'Pembayaran sukses!');
         } else {
-            return redirect('/admin')->with('alert', 'Pembayaran gagal!');
+            return redirect('/admin')->with('error', 'Pembayaran gagal!');
         }
     }
 }

@@ -178,15 +178,16 @@
                                 </td>
                                 <td class="px-5 py-4 text-right space-x-5">
                                     @if($order->status !='Pesanan dibatalkan')
-                                    <button data-modal-target="cancel-order" data-modal-toggle="cancel-order" class="font-medium text-dongker" type="button">
+                                    <button data-modal-target="cancel-order{{$order->id}}" data-modal-toggle="cancel-order{{$order->id}}" class="font-medium text-dongker" type="button">
                                         Batalkan
                                     </button>
-                                    @endif
-                                    <form action="/loker/" method="post">
+                                    @else
+                                    <form action="/order/{{$order->id}}" method="post">
                                         @method('delete')
                                         @csrf
-                                        <button class="font-medium text-dongker" onclick="return confirm('Apakah Anda yakin ingin menghapus lowongan kerja ini?')">Hapus</button>
+                                        <button class="font-medium text-dongker" onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">Hapus</button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -221,9 +222,9 @@
                             <th scope="col" class="px-6 py-3">
                                 Bukti Pelunasan
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <!-- <th scope="col" class="px-6 py-3">
                                 Aksi
-                            </th>
+                            </th> -->
                         </thead>
                         <tbody>
                             @foreach($orders as $order)
@@ -236,7 +237,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($order->delivery_fee == NULL && $order->delivery_id == 2)
-                                    <button data-modal-target="add-delivery-fee" data-modal-toggle="add-delivery-fee" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    <button data-modal-target="add-delivery-fee{{$order->id}}" data-modal-toggle="add-delivery-fee{{$order->id}}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                         Tambah
                                     </button>
                                     @else
@@ -252,18 +253,18 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
-                                    @if($order->payments_proof != NULL)
+                                    @if($order->payment_proof != NULL)
                                     <a href="{{ asset('storage/' . $order->payments_proof ) }}" target="_blank">Bukti</a>
                                     @endif
                                 </td>
-                                <td class="px-5 py-4 text-right space-x-5">
+                                <!-- <td class="px-5 py-4 text-right space-x-5">
                                     <a href="/loker/edit" class="font-medium text-dongker">Edit</a>
                                     <form action="/loker/" method="post">
                                         @method('delete')
                                         @csrf
                                         <button class="font-medium text-dongker" onclick="return confirm('Apakah Anda yakin ingin menghapus lowongan kerja ini?')">Hapus</button>
                                     </form>
-                                </td>
+                                </td> -->
                             </tr>
                             @endforeach
                         </tbody>
@@ -292,6 +293,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     Harga per pcs
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Aksi
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -306,15 +310,14 @@
                                 <td class="px-6 py-4">
                                     {{ $product->price }}
                                 </td>
-                                <!-- <td class="px-5 py-4 text-right space-x-5">
-                                    <a href="/posts/{{-- $post->id --}}/edit" class="font-medium text-dongker">Edit</a>
-                                    <form action="/posts/{{-- $post->id --}}" method="post">
+                                <td class="px-5 py-4 text-right space-x-5">
+                                    <form action="/product/{{ $product->id }}" method="post">
                                         @method('delete')
                                         @csrf
                                         <button class="font-medium text-dongker"
-                                            onclick="return confirm('Apakah Anda yakin ingin menghapus post?')">Hapus</button>
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus produk?')">Hapus</button>
                                     </form>
-                                </td> -->
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -340,6 +343,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     Foto Sampel
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Aksi
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -349,7 +355,14 @@
                                     {{ $index+1 }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    <img class="rounded-t-lg" src="{{ asset('storage/' . $sample->photo )}}" alt="">
+                                    <img class="rounded-t-lg max-w-xs" src="{{ asset('storage/' . $sample->photo )}}" alt="">
+                                </td>
+                                <td class="px-6 py-4">
+                                    <form action="/sample/{{$sample->id}}" method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="font-medium text-dongker" onclick="return confirm('Apakah Anda yakin ingin menghapus gambar sampel ini?')">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -362,11 +375,11 @@
 </div>
 <!-- Main modal Cancel Order -->
 @foreach($orders as $order)
-<div id="cancel-order" data-modal-placement="center-center" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="cancel-order{{$order->id}}" data-modal-placement="center-center" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="cancel-order">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="cancel-order{{$order->id}}">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
@@ -390,10 +403,10 @@
 </div>
 
 <!-- Main modal Add Delivery Fee-->
-<div id="add-delivery-fee" data-modal-placement="center-center" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="add-delivery-fee{{$order->id}}" data-modal-placement="center-center" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="add-delivery-fee">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="add-delivery-fee{{$order->id}}">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
