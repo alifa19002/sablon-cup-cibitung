@@ -13,7 +13,7 @@ class SampleController extends Controller
         return view('samples.sample', [
             'title' => 'Sampel',
             'active' => 'sampel',
-            'samples' => Sample::all()
+            'samples' => Sample::join('products', 'products.id', '=', 'samples.product_id')->get()
         ]);
     }
     public function store(Request $request)
@@ -29,7 +29,7 @@ class SampleController extends Controller
         else{
             $imagepath = NULL;
         }
-            $order = Sample::create([
+            Sample::create([
                 'product_id' => request('product_id'),
                 'photo' => $imagepath
             ]);
@@ -42,5 +42,14 @@ class SampleController extends Controller
             'active' => 'Tambah Sampel',
             'products' => Product::orderBy('productName')->get()
         ]);
+    }
+    public function destroy($id)
+    {
+        $sample = Sample::destroy($id);
+        if ($sample) {
+            return redirect('/admin')->with('success', 'Sampel telah dihapus!');
+        } else {
+            return redirect('/admin')->with('error', 'Sampel gagal dihapus!');
+        }
     }
 }

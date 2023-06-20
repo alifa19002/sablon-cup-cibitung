@@ -23,4 +23,13 @@ class ProductController extends Controller
         ]);
         return redirect('/admin')->with('success', 'Produk telah ditambahkan');
     }
+    public function destroy($id)
+    {
+        $product = Product::destroy($id);
+        if ($product) {
+            return redirect('/admin')->with('success', 'Produk telah dihapus!');
+        } else {
+            return redirect('/admin')->with('error', 'Produk gagal dihapus!');
+        }
+    }
 }
