@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DeliveryType;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -19,10 +21,11 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $profilUser = User::where('id', $user_id)->first();
         // $my_order = Order::where('user_id', $user_id)->get();
-        $my_orders = Order::select('orders.id', 'orders.design', 'orders.quantity', 'orders.address', 'orders.status', 'orders.note', 'products.productName', 'payments.delivery_fee', 'payments.total_price', 'payments.dp_proof', 'payments.payment_proof')
-            ->join('products', 'products.id', '=', 'orders.product_id')->join('payments', 'payments.order_id', '=', 'orders.id')
+        $my_orders = Order::select('orders.id', 'orders.design', 'orders.quantity', 'orders.address', 'orders.design', 'orders.status', 'orders.note', 'products.productName', 'payments.delivery_fee', 'payments.total_price', 'payments.dp_proof', 'payments.payment_proof', 'delivery_types.type', Payment::raw('IFNULL(payments.delivery_fee + payments.total_price, payments.total_price) as total') )
+            ->join('products', 'products.id', '=', 'orders.product_id')->join('payments', 'payments.order_id', '=', 'orders.id')->join('delivery_types', 'delivery_types.id', '=', 'payments.delivery_id')
             ->where('orders.user_id', $user_id)
             ->orderBy('orders.id', 'DESC')->get();
+        // $total_price = Payment::raw('payments.delivery_fee + payments.total_price')->get();
         return view('users.profile', compact(['title', 'profilUser', 'my_orders']));
     }
     
@@ -75,7 +78,7 @@ class UserController extends Controller
         $profilUser = User::where('id', $id)->first();
         $rules = [
             'nama' => 'required|max:255',
-            'alamat' => 'required|max:255'
+            'alamat' => 'max:255'
         ];
 
         if ($request->username != $profilUser->username) {
@@ -83,7 +86,7 @@ class UserController extends Controller
             // $username = $request->input('username');
         }
         if ($request->email != $profilUser->email) {
-            $rules['email'] = 'required|email:dns|unique:users';
+            $rules['email'] = 'email:dns';
             // $email = $request->input('email');
         }
         if ($request->no_telp != $profilUser->no_telp) {
@@ -103,7 +106,6 @@ class UserController extends Controller
         if ($request->file('foto_profil')) {
             $uploadPath = public_path('storage/foto_profil');
             if (File::exists(public_path('storage/'.$profilUser->foto_profil))) {
-                
                 File::delete(public_path('storage/'.$profilUser->foto_profil));
             }
             $file = $request->file('foto_profil');
