@@ -15,7 +15,7 @@ class AdminController extends Controller
         $title = "Dashboard Admin";
         $products = Product::orderBy('productName')->get();
         $samples = Sample::all();
-        $orders = Order::select('orders.id', 'orders.design', 'orders.quantity', 'orders.address', 'orders.status', 'orders.note', 'products.productName', 'users.nama', 'users.no_telp', 'payments.delivery_id', 'payments.delivery_fee', 'payments.total_price', 'payments.dp_proof', 'payments.payment_proof')
+        $orders = Order::select('orders.id', 'orders.design', 'orders.quantity', 'orders.address', 'orders.status', 'orders.note', 'products.productName', 'users.nama', 'users.no_telp', 'payments.delivery_id', 'payments.delivery_fee',  Payment::raw('IFNULL(payments.delivery_fee + payments.total_price, payments.total_price) as total'), 'payments.total_price', 'payments.dp_proof', 'payments.payment_proof')
             ->join('users', 'users.id', '=', 'orders.user_id')->join('products', 'products.id', '=', 'orders.product_id')->join('payments', 'payments.order_id', '=', 'orders.id')
             ->orderBy('orders.id', 'DESC')->get();
 
