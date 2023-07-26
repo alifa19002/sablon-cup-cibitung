@@ -169,7 +169,7 @@
           </p>
 
           <div class="flex mt-4 space-x-6 text-white mb-4">
-            <a class="hover:opacity-75" href="" target="_blank" rel="noreferrer">
+            <a class="hover:opacity-75" href="https://www.facebook.com/asyifagroups/" target="_blank" rel="noreferrer">
               <span class="sr-only"> Facebook </span>
 
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -177,7 +177,7 @@
               </svg>
             </a>
 
-            <a class="hover:opacity-75" href="" target="_blank" rel="noreferrer">
+            <a class="hover:opacity-75" href="https://www.instagram.com/sabloncupcibitung/" target="_blank" rel="noreferrer">
               <span class="sr-only"> Instagram </span>
 
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -185,7 +185,7 @@
               </svg>
             </a>
 
-            <a class="hover:opacity-75" href="" target="_blank" rel="noreferrer">
+            <a class="hover:opacity-75" href="https://twitter.com/joy_soempheno" target="_blank" rel="noreferrer">
               <span class="sr-only"> Twitter </span>
 
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

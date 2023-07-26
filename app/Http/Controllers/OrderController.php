@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -84,7 +85,7 @@ class OrderController extends Controller
             case('kirim'):
                 $order = Order::find($id);
                 $delivery_type = Payment::where('order_id', $id)->first();
-                if($delivery_type == 1){
+                if($delivery_type->delivery_id == 1){
                     $order->status = "Pesanan Dapat Diambil";
                 }
                 else{
@@ -109,20 +110,32 @@ class OrderController extends Controller
         $order = Order::find(request('order_id'));
         $order->note = request('note');
         $order->status = 'Pesanan dibatalkan';
+        if(Auth::user()->role == 0){
+            $path = '/profile';
+        }
+        else{
+            $path = '/admin';
+        }
         if ($order->save()) {
-            return redirect('/admin')->with('success', 'Pesanan dibatalkan!');
+            return redirect($path)->with('success', 'Pesanan dibatalkan!');
         } else {
-            return redirect('/admin')->with('error', 'Error dalam pembatalan pesanan!');
+            return redirect($path)->with('error', 'Error dalam pembatalan pesanan!');
         }
     }
     public function destroy($id)
     {
         $payment = Payment::destroy($id);
         $order = Order::destroy($id);
+        if(Auth::user()->role == 0){
+            $path = '/profile';
+        }
+        else{
+            $path = '/admin';
+        }
         if ($order && $payment) {
-            return redirect('/admin')->with('success', 'Pesanan telah dihapus!');
+            return redirect($path)->with('success', 'Pesanan telah dihapus!');
         } else {
-            return redirect('/admin')->with('error', 'Pesanan gagal dihapus!');
+            return redirect($path)->with('error', 'Pesanan gagal dihapus!');
         }
     }
 }

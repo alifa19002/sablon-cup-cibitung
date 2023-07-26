@@ -34,7 +34,7 @@
                             <div class="w-full flex-1 mx-2">
                                 <!-- <div class="my-2 p-1 bg-white flex border border-gray-200 rounded"> -->
                                 <label for="product_id" class="font-bold ml-1">Produk</label>
-                                <select name="product_id" id="product_id" class="rounded-xl block w-full p-2.5">
+                                <select name="product_id" id="product_id" class="rounded-xl block w-full p-2.5" required>
                                     <option value="">== Pilih Produk ==</option>
                                     @foreach ($products as $id => $product)
                                     <option value="{{ $product->id }}">{{ $product->productName }}</option>
@@ -51,7 +51,7 @@
                             <div class="w-full flex-1 mx-2">
                                 <!-- <div class="my-2 p-1 bg-white flex border border-gray-200 rounded"> -->
                                 <label for="quantity" class="font-bold ml-1">Kuantitas</label>
-                                <input type="number" id="quantity" name="quantity" min="1000" max="20000" step="1000" value="0" class="rounded-xl block w-full p-2.5">
+                                <input type="number" id="quantity" name="quantity" min="1000" max="20000" step="1000" value="0" class="rounded-xl block w-full p-2.5" required>
                                 <!-- <input type="text" class="p-1 px-2 w-full" name="domisili" id="domisili" value="{{ old('judul')}}"> -->
                                 <!-- </div> -->
                             </div>
@@ -63,7 +63,7 @@
                             <div class="w-full flex-1 mx-2">
                                 <!-- <div class="my-2 p-1 bg-white flex border border-gray-200 rounded"> -->
                                 <label for="design" class="font-bold ml-1">Desain</label>
-                                <input type="file" id="design" name="design" class="bg-white rounded-xl block w-full p-2.5 border border-gray-200">
+                                <input type="file" id="design" name="design" class="bg-white rounded-xl block w-full p-2.5 border border-gray-200" required>
                                 <!-- <input type="text" class="p-1 px-2 w-full" name="min_pengalaman" id="min_pengalaman" value="{{ old('judul')}}"> -->
                                 <!-- </div> -->
                             </div>
@@ -75,7 +75,7 @@
                             <div class="w-full flex-1 mx-2">
                                 <!-- <div class="my-2 p-1 bg-white flex border border-gray-200 rounded"> -->
                                 <label for="alamat" class="font-bold ml-1">Alamat</label>
-                                <input type="text" class="rounded-xl block w-full p-2.5" name="address" id="address" value="{{ old('address',  auth()->user()->alamat) }}">
+                                <input type="text" class="rounded-xl block w-full p-2.5" name="address" id="address" value="{{ old('address',  auth()->user()->alamat) }}" required>
                                 <!-- </div> -->
                                 <!-- <script> //Rp dan titik untuk harga?
                             $(document).ready(function(){
@@ -91,7 +91,7 @@
                             <div class="w-full flex-1 mx-2">
                                 <!-- <div class="my-2 p-1 bg-white flex border border-gray-200 rounded"> -->
                                 <label for="delivery_id" class="font-bold ml-1">Tipe Pengiriman</label>
-                                <select name="delivery_id" id="delivery_id" class="rounded-xl block w-full p-2.5">
+                                <select name="delivery_id" id="delivery_id" class="rounded-xl block w-full p-2.5" required>
                                     <option value="">== Pilih Tipe Pengiriman ==</option>
                                     @foreach ($deliveries as $id => $delivery)
                                     <option value="{{ $delivery->id }}">{{ $delivery->type }}</option>

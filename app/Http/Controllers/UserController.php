@@ -20,12 +20,10 @@ class UserController extends Controller
         $title = "My Profile";
         $user_id = Auth::user()->id;
         $profilUser = User::where('id', $user_id)->first();
-        // $my_order = Order::where('user_id', $user_id)->get();
         $my_orders = Order::select('orders.id', 'orders.design', 'orders.quantity', 'orders.address', 'orders.design', 'orders.status', 'orders.note', 'products.productName', 'payments.delivery_fee', 'payments.total_price', 'payments.dp_proof', 'payments.payment_proof', 'delivery_types.type', Payment::raw('IFNULL(payments.delivery_fee + payments.total_price, payments.total_price) as total') )
             ->join('products', 'products.id', '=', 'orders.product_id')->join('payments', 'payments.order_id', '=', 'orders.id')->join('delivery_types', 'delivery_types.id', '=', 'payments.delivery_id')
             ->where('orders.user_id', $user_id)
             ->orderBy('orders.id', 'DESC')->get();
-        // $total_price = Payment::raw('payments.delivery_fee + payments.total_price')->get();
         return view('users.profile', compact(['title', 'profilUser', 'my_orders']));
     }
     
@@ -44,7 +42,6 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
-        // if (Auth::attempt($credentials)) {
             if (Auth::attempt(['username' => $request->login, 'password' => $request->password]) || Auth::attempt(['no_telp' => $request->login, 'password' => $request->password])) {
             $request->session()->regenerate();
             if (Auth::user()->role == 1) {

@@ -26,15 +26,5 @@ class AdminController extends Controller
             'orders' => $orders,
             'samples' => $samples
         ]);
-    }   
-    public function deliveryFee(Request $request)
-    {
-        $payment = Payment::where('order_id', request('order_id'))->first();
-        $payment->delivery_fee = request('delivery_fee');
-        if ($payment->save()) {
-            return redirect('/admin')->with('success', 'Pembayaran sukses!');
-        } else {
-            return redirect('/admin')->with('alert', 'Pembayaran gagal!');
-        }
     }
 }

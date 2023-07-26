@@ -27,14 +27,8 @@ class RegisterController extends Controller
         ]);
         $request->validate(['password_confirmation' => 'required|same:password']);
 
-        // if ($validatedData->FALSE) {
-        //     return response()->json([
-        //       ‘errors’ => $validator->errors(), ‘status’ => 400,], 400);
-        //   }
-        // $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::create($validatedData);
-        // $request->session()->flash('success', 'Registration successful, please login!');
         return redirect('/login')->with('success', 'Registration successful, please login!');
     }
 }

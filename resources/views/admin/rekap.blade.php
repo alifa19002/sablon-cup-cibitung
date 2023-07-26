@@ -104,64 +104,10 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($order->status !='Pesanan dibatalkan')
-                                    <button id="dropdownStatusButton" data-dropdown-toggle="dropdownStatus" class="inline-flex items-center px-2 py-1 mb-3 mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg md:mb-0 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">{{ $order->status }} <svg class="w-3 h-3 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <button id="dropdownStatusButton{{ $order->id }}" data-dropdown-toggle="dropdownStatus{{ $order->id }}" class="inline-flex items-center px-2 py-1 mb-3 mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg md:mb-0 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">{{ $order->status }} <svg class="w-3 h-3 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                         </svg></button>
-                                    <!-- Dropdown menu -->
-                                    <div id="dropdownStatus" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownStatusButton">
-                                            <li>
-                                                <form action="/change-status/{{ $order->id }}/dp" method="post">
-                                                    @method('put')
-                                                    @csrf
-                                                    <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        Menunggu Pembayaran DP
-                                                    </button>
-                                                </form>
-                                                <!-- <a href="/change-status/dp" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Menunggu Pembayaran DP</a> -->
-                                            </li>
-                                            <li>
-                                                <form action="/change-status/{{ $order->id }}/proses" method="post">
-                                                    @method('put')
-                                                    @csrf
-                                                    <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        Pesanan Diproses
-                                                    </button>
-                                                </form>
-                                                <!-- <a href="/change-status/proses" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pesanan Diproses</a> -->
-                                            </li>
-                                            <li>
-                                                <form action="/change-status/{{ $order->id }}/lunas" method="post">
-                                                    @method('put')
-                                                    @csrf
-                                                    <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        Menunggu Pelunasan Pembayaran
-                                                    </button>
-                                                </form>
-                                                <!-- <a href="/change-status/lunas" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Menunggu Pelunasan Pembayaran</a> -->
-                                            </li>
-                                            <li>
-                                                <form action="/change-status/{{ $order->id }}/kirim" method="post">
-                                                    @method('put')
-                                                    @csrf
-                                                    <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        Produksi Selesai
-                                                    </button>
-                                                </form>
-                                                <!-- <a href="/change-status/kirim" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Produksi Selesai</a> -->
-                                            </li>
-                                            <li>
-                                                <form action="/change-status/{{ $order->id }}/selesai" method="post">
-                                                    @method('put')
-                                                    @csrf
-                                                    <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        Pesanan Selesai
-                                                    </button>
-                                                </form>
-                                                <!-- <a href="/change-status/selesai" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pesanan Selesai</a> -->
-                                            </li>
-                                        </ul>
-                                    </div>
+
                                     @else
                                     {{ $order->status }}.</br>
                                     {{ $order->note }}
@@ -254,7 +200,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($order->payment_proof != NULL)
-                                    <a href="{{ asset('storage/' . $order->payments_proof ) }}" target="_blank">Bukti</a>
+                                    <a href="{{ asset('storage/' . $order->payment_proof ) }}" target="_blank">Bukti</a>
                                     @endif
                                 </td>
                                 <!-- <td class="px-5 py-4 text-right space-x-5">
@@ -314,8 +260,7 @@
                                     <form action="/product/{{ $product->id }}" method="post">
                                         @method('delete')
                                         @csrf
-                                        <button class="font-medium text-dongker"
-                                            onclick="return confirm('Apakah Anda yakin ingin menghapus produk?')">Hapus</button>
+                                        <button class="font-medium text-dongker" onclick="return confirm('Apakah Anda yakin ingin menghapus produk?')">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
@@ -427,6 +372,62 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Dropdown menu -->
+<div id="dropdownStatus{{ $order->id }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownStatusButton{{ $order->id }}">
+        <li>
+            <form action="/change-status/{{ $order->id }}/dp" method="post">
+                @method('put')
+                @csrf
+                <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Menunggu Pembayaran DP
+                </button>
+            </form>
+            <!-- <a href="/change-status/dp" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Menunggu Pembayaran DP</a> -->
+        </li>
+        <li>
+            <form action="/change-status/{{ $order->id }}/proses" method="post">
+                @method('put')
+                @csrf
+                <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Pesanan Diproses
+                </button>
+            </form>
+            <!-- <a href="/change-status/proses" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pesanan Diproses</a> -->
+        </li>
+        <li>
+            <form action="/change-status/{{ $order->id }}/lunas" method="post">
+                @method('put')
+                @csrf
+                <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Menunggu Pelunasan Pembayaran
+                </button>
+            </form>
+            <!-- <a href="/change-status/lunas" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Menunggu Pelunasan Pembayaran</a> -->
+        </li>
+        <li>
+            <form action="/change-status/{{ $order->id }}/kirim" method="post">
+                @method('put')
+                @csrf
+                <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Produksi Selesai
+                </button>
+            </form>
+            <!-- <a href="/change-status/kirim" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Produksi Selesai</a> -->
+        </li>
+        <li>
+            <form action="/change-status/{{ $order->id }}/selesai" method="post">
+                @method('put')
+                @csrf
+                <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Pesanan Selesai
+                </button>
+            </form>
+            <!-- <a href="/change-status/selesai" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pesanan Selesai</a> -->
+        </li>
+    </ul>
 </div>
 @endforeach
 @endsection

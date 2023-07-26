@@ -55,45 +55,44 @@
                 <div class="tab-content tab-space">
                     <div class="block" id="tab-profile">
                         <div class="mx-auto">
-                            <form>
-                                <div class="flex flex-wrap">
-                                    <div class="w-full lg:w-6/12 px-4">
-                                        <div class="relative w-full mb-3">
-                                            <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
-                                                Nama
-                                            </label>
-                                            <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->nama }}" disabled readonly>
-                                        </div>
-                                    </div>
-                                    <div class="w-full lg:w-6/12 px-4">
-                                        <div class="relative w-full mb-3">
-                                            <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
-                                                Nomor Telepon
-                                            </label>
-                                            <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->no_telp }}" disabled readonly>
-                                        </div>
-                                    </div>
-                                    <div class="w-full lg:w-6/12 px-4">
-                                        <div class="relative w-full mb-3">
-                                            <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
-                                                Email
-                                            </label>
-                                            <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->email }}" disabled readonly>
-                                        </div>
-                                    </div>
-                                    <div class="w-full lg:w-6/12 px-4">
-                                        <div class="relative w-full mb-3">
-                                            <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
-                                                Alamat
-                                            </label>
-                                            @if($profilUser->alamat == NULL)
-                                            <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="-" disabled readonly>
-                                            @else
-                                            <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->alamat }}" disabled readonly>
-                                            @endif
-                                        </div>
+                            <div class="flex flex-wrap">
+                                <div class="w-full lg:w-6/12 px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
+                                            Nama
+                                        </label>
+                                        <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->nama }}" disabled readonly>
                                     </div>
                                 </div>
+                                <div class="w-full lg:w-6/12 px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
+                                            Nomor Telepon
+                                        </label>
+                                        <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->no_telp }}" disabled readonly>
+                                    </div>
+                                </div>
+                                <div class="w-full lg:w-6/12 px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
+                                            Email
+                                        </label>
+                                        <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->email }}" disabled readonly>
+                                    </div>
+                                </div>
+                                <div class="w-full lg:w-6/12 px-4">
+                                    <div class="relative w-full mb-3">
+                                        <label class="block text-blueGray-600 text-sm font-bold mb-2" htmlfor="grid-password">
+                                            Alamat
+                                        </label>
+                                        @if($profilUser->alamat == NULL)
+                                        <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="-" disabled readonly>
+                                        @else
+                                        <input type="text" id="disabled-input-2" class="bg-white border border-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ $profilUser->alamat }}" disabled readonly>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="hidden" id="tab-orders">
@@ -277,7 +276,8 @@
         </div>
     </div>
 </div>
-
+@endforeach
+@foreach ($my_orders as $order)
 <div id="cancel-order{{$order->id}}" data-modal-placement="center-center" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
         <!-- Modal content -->
