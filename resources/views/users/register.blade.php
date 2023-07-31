@@ -47,7 +47,7 @@
           </div>
           <div class="block w-full p-2.5">
             <label for="alamat" class="ml-1">Alamat</label>
-            <input required value="{{ old('alamat') }}" type="text" class="@error('alamat') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="alamat" name="alamat" placeholder="Alamat">
+            <input value="{{ old('alamat') }}" type="text" class="@error('alamat') is-invalid @enderror form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="alamat" name="alamat" placeholder="Alamat">
             @error('alamat')
             <div class="invalid-feedback">
               {{ $message }}
